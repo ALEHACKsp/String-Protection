@@ -14,12 +14,11 @@ int main()
 {
 
 	auto text = SString("lol.txt");
-
+	printf("Encrypted: %s\n", text.GetRaw());
 	while (true) 
 	{
 		if ((GetKeyState(VK_RETURN) & 0x8000)!=0)
 		{ 
-			printf("Encrypted: %s\n", text.GetRaw());
 			printf("Decrypted: %s\n", text.Decrypt());
 		}
 		Sleep(50);
