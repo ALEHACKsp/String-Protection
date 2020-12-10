@@ -13,13 +13,13 @@
 int main()
 {
 
-	auto text = SString("lol.txt");
-	printf("Encrypted: %s\n", text.GetRaw());
+	auto text1 = SString("text1");
+	printf("Encrypted: %s\n", text1.GetRaw());
 	while (true) 
 	{
 		if ((GetKeyState(VK_RETURN) & 0x8000)!=0)
 		{ 
-			printf("Decrypted: %s\n", text.Decrypt());
+			printf("Decrypted: %s\n", text1.Decrypt());
 		}
 		Sleep(50);
 	}

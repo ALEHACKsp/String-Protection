@@ -2,11 +2,11 @@
 #include <type_traits>
 #include <cstdarg>
 
+
 /*
 	Notes:
-	If the Decryption doesn't work try switching from Debug to Release mode
+	For some Reason printf & cout will only work if you compile it in Release-mode
 */
-
 
 // Removes references from class and makes it non-const
 template<class Class>
@@ -16,12 +16,11 @@ template <unsigned long StringSize, int Key, int Seed, typename Type>
 class SecureString
 {
 public:
-
 	/*
-		SecureString()
-		Constructore executes at Compile-Time 
+	SecureString()
+	Constructore executes at Compile-Time
 	*/
-	__forceinline constexpr SecureString(Type* Data)
+	constexpr SecureString(Type* Data)
 	{
 		XORonCompile(Data);
 	}
@@ -32,7 +31,7 @@ public:
 		by making a copy of DataBuffer and temporarly decrypting the string
 		We cant re-use the XORonCompile because that would permanantly decrypt DataBuffer
 	*/
-	__forceinline constexpr Type* Decrypt()
+	constexpr Type* Decrypt()
 	{
 		Type TempBuffer[StringSize]{};
 		for (int i = 0; i < StringSize; i++)
@@ -41,42 +40,39 @@ public:
 		}
 		return TempBuffer;
 	}
-	__forceinline operator Type* ()
-	{
-		return Decrypt();
-	}
 
 	/*
 		Free()
 		Delets the Encrypted String
 	*/
-	__forceinline void Free()
+	void Free()
 	{
 		for (size_t i = 0; i < StringSize; i++)
 		{
 			DataBuffer[i] = 0;
 		}
 	}
+
 	/*
 		GetRaw()
 		Return the encrypted string
 	*/
-	__forceinline Type* GetRaw()
+	Type* GetRaw()
 	{
 		return DataBuffer;
 	}
 private:
 	/*
-		XORonCompile()
-		Encrypts string at Compile-Time
-		We use a extra seed so that every encryption key in each iteration will be unique
+	XORonCompile()
+	Encrypts string at Compile-Time
+	We use a extra seed so that every encryption key in each iteration will be unique
 	*/
-	__forceinline constexpr void XORonCompile(Type* Data)
+	constexpr void XORonCompile(Type* Data)
 	{
-        for (int i = 0; i < StringSize; i++)
-        {
+		for (int i = 0; i < StringSize; i++)
+		{
 			DataBuffer[i] = Data[i] ^ (((Key + i + 1) * (i + 1)) * Seed);
-        }
+		}
 	}
 
 	// Here is the Encrypted String saved
