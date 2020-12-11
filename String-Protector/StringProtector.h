@@ -18,8 +18,8 @@ class SecureString
 {
 public:
 	/*
-	SecureString()
-	Constructore executes at Compile-Time
+		SecureString()
+		Constructore executes at Compile-Time
 	*/
 	constexpr SecureString(Type* Data)
 	{
@@ -30,7 +30,6 @@ public:
 		Decrypt()
 		Returns a decrypted copy of the string
 		by making a copy of DataBuffer and temporarly decrypting the string
-		We cant re-use the XORonCompile because that would permanantly decrypt DataBuffer
 	*/
 	constexpr Type* Decrypt()
 	{
@@ -84,6 +83,19 @@ private:
 						constexpr static auto x = SecureString<sizeof(String) / sizeof(String[0]), Key, Seed, NoType<decltype(String[0])>>((NoType<decltype(String[0])>*)String);\
 						return x;}()
 #define SString(String) SString_Key(String,__TIME__[0], __TIME__[3])
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 	MIT License
