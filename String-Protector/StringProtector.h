@@ -11,15 +11,15 @@
 // Removes references from class and makes it non-const
 // -> const char* => char
 template<class Class>
-using NoType = typename std::remove_const_t<std::remove_reference_t<Class>>;
+using RawType = typename std::remove_const_t<std::remove_reference_t<Class>>;
 
 template <unsigned long StringSize, int Key, int Seed, typename Type>
 class SecureString
 {
 public:
 	/*
-	SecureString()
-	Constructore executes at Compile-Time
+		SecureString()
+		Constructore executes at Compile-Time
 	*/
 	constexpr SecureString(Type* Data)
 	{
@@ -64,9 +64,9 @@ public:
 	}
 private:
 	/*
-	XORonCompile()
-	Encrypts string at Compile-Time
-	We use a extra seed so that every encryption key in each iteration will be unique
+		XORonCompile()
+		Encrypts string at Compile-Time
+		We use a extra seed so that every encryption key in each iteration will be unique
 	*/
 	constexpr void XORonCompile(Type* Data)
 	{
@@ -81,9 +81,31 @@ private:
 };
 
 #define SString_Key(String, Key, Seed) []() {\
-						constexpr static auto x = SecureString<sizeof(String) / sizeof(String[0]), Key, Seed, NoType<decltype(String[0])>>((NoType<decltype(String[0])>*)String);\
+						constexpr static auto x = SecureString<sizeof(String) / sizeof(String[0]), Key, Seed, RawType<decltype(String[0])>>((RawType<decltype(String[0])>*)String);\
 						return x;}()
 #define SString(String) SString_Key(String,__TIME__[0], __TIME__[3])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 	MIT License
