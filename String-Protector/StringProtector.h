@@ -9,6 +9,7 @@
 */
 
 // Removes references from class and makes it non-const
+// -> const char* => char
 template<class Class>
 using NoType = typename std::remove_const_t<std::remove_reference_t<Class>>;
 
