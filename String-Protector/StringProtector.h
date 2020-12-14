@@ -8,7 +8,7 @@
 	For some Reason printf & cout will only work if you compile it in Release-mode
 */
 
-// Removes references from class and makes it non-const
+// Removes references to type and makes it non-const
 // -> const char* => char
 template<class Class>
 using RawType = typename std::remove_const_t<std::remove_reference_t<Class>>;
