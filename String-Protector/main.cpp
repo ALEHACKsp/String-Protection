@@ -1,8 +1,6 @@
 #include "StringProtector.h"
 #include <Windows.h>
 #include <iostream>
-#include <fstream>
-#include <ios>
 
 
 // If you want to improve the Key & Seed generation process read this:
